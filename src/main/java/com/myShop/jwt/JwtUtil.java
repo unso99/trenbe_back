@@ -5,12 +5,14 @@ import com.myShop.member.MemberDto;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +24,7 @@ public class JwtUtil {
     //토큰 발급시 서명할 key
     @Value("${jwt.secret}")
     private String secret;
+
 
     //토큰 만료
     @Value("${jwt.expiration}")
@@ -65,20 +68,20 @@ public class JwtUtil {
 
     private String createToken(Map<String, Object> claims, String subject) {
         //JwtBuilder 객체를 이용해서 토큰을 만든다.
-        System.out.println("토큰 생성 ");
+        Key key = Keys.hmacShaKeyFor(secret.getBytes());
         return Jwts.builder()
+                .signWith(key,SignatureAlgorithm.HS256)
                 .setClaims(claims)  //토큰에 담을 추가 정보
                 .setSubject(subject) //토큰의 주제(사용자명 or 사용자의 id or 기관명 or 기기명)
                 .setIssuedAt(new Date(System.currentTimeMillis())) // 토큰 발급 시간
                 .setExpiration(new Date(System.currentTimeMillis() + expiration)) //토큰 무효화 되는 시간
-                .signWith(SignatureAlgorithm.HS256, secret).compact(); // HS256 알고리즘으로 서명해서 토큰얻어내기
+                .compact(); // HS256 알고리즘으로 서명해서 토큰얻어내기
     }
 
     //토큰 유효성 여부를 리턴하는 메소드
     public Boolean validateToken(String token, UserDetails userDetails) {
         //토큰으로 부터 userName 를 얻어내서
         final String username = extractMemberName(token);
-        System.out.println("토큰 비교");
         //DB 에 저장된 userName 이고 토큰 유효기간이 만료가 안되었는지 확인해서 유효성 여부를 리턴한다.
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }

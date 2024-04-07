@@ -21,8 +21,6 @@ public class MemberServiceImpl implements MemberService {
     public boolean insert(MemberDto dto) {
         dto.setPassword(encoder.encode(dto.getPassword()));
         int result = dao.insert(dto);
-        System.out.println(result);
-
         return result == 1;
     }
 }
