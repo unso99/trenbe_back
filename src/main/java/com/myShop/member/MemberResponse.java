@@ -13,6 +13,7 @@ import java.util.List;
 public class MemberResponse {
     private MemberDto dto;
     private List<MemberDto> list;
+    private String token;
     private HttpStatus status;
 
 }

@@ -27,17 +27,21 @@ public class MemberController {
     private JwtUtil jwtUtil;
 
     @PostMapping("/login")
-    public String login(@RequestBody MemberDto dto) throws Exception {
+    public ResponseEntity<MemberResponse> login(@RequestBody MemberDto dto) throws Exception {
+        MemberResponse response = new MemberResponse();
         try {
             UsernamePasswordAuthenticationToken authToken =
                     new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword());
             authManager.authenticate(authToken);
         } catch (Exception e) {
-            throw new Exception("아이디 혹은 비밀번호가 틀려요.");
-        }
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 
+        }
+        response.setToken(jwtUtil.generateToken(dto.getEmail()));
+        response.setStatus(HttpStatus.OK);
         //예외가 발생하지 않았다면 인증을 통과한 것 토큰을 발급해서 응답
-        return jwtUtil.generateToken(dto.getEmail());
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping("/post-member")
