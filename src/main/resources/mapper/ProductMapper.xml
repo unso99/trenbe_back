@@ -5,7 +5,7 @@
         ID
         ,NAME
         ,PRICE
-        ,DETAIL
+        ,BRAND
         ,CATEGORY
         ,IMAGEURL
     </sql>
@@ -32,7 +32,7 @@
                 seq_product.NEXTVAL
                 ,#{name}
                 ,#{price}
-                ,#{detail}
+                ,#{brand}
                 <if test="category != null">
                     ,#{category}
                 </if>
