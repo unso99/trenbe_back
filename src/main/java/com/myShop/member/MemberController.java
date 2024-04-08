@@ -53,13 +53,11 @@ public class MemberController {
             MemberDto insertedDto = service.getMember(dto);
             if (isSuccess) {
                 log.info("member = {}", insertedDto.toString());
-                response.setDto(insertedDto);
-                response.setStatus(HttpStatus.OK);
             } else {
                 log.error("member = {}", insertedDto.toString());
-                response.setDto(insertedDto);
-                response.setStatus(HttpStatus.OK);
             }
+            response.setDto(insertedDto);
+            response.setStatus(HttpStatus.OK);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
