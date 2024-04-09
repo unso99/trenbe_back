@@ -16,6 +16,13 @@
             DUAL
     </select>
 
+    <select id="getList" resultType="productDto">
+        SELECT
+            <include refid="query"/>
+        FROM
+            PRODUCT
+    </select>
+
     <select id="getProduct" parameterType="productDto" resultType="productDto">
         SELECT
             <include refid="query"/>

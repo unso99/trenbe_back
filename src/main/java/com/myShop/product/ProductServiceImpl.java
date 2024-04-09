@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProductServiceImpl implements ProductService {
     @Autowired
@@ -19,5 +21,10 @@ public class ProductServiceImpl implements ProductService {
     public ProductDto getRecentProduct() {
         long id = dao.getSeq();
         return dao.getProduct(id);
+    }
+
+    @Override
+    public List<ProductDto> getList() {
+        return dao.getList();
     }
 }
