@@ -9,25 +9,49 @@
         ,CATEGORY
         ,IMAGEURL
     </sql>
-    <select id="getSeq" resultType="long">
-        SELECT
-            seq_product.CURRVAL
-        FROM
-            DUAL
-    </select>
 
-    <select id="getList" resultType="productDto">
+    <select id="getList" parameterType="productDto" resultType="productDto">
         SELECT
-            <include refid="query"/>
+            p.ID as ID,
+            p.NAME as NAME,
+            p.PRICE as PRICE,
+            c1.CODE_NAME as BRAND,
+            c2.CODE_NAME as CATEGORY,
+            p.IMAGEURL as IMAGEURL
         FROM
-            PRODUCT
+            PRODUCT p
+        JOIN
+            common c1 ON
+                p.BRAND = c1.CODE_ID
+        JOIN
+            common c2 ON
+                p.CATEGORY = c2.CODE_ID
+        <where>
+            <if test="brand != null">
+                AND p.BRAND = #{brand}
+            </if>
+            <if test="category != null">
+                ANd p.CATEGORY = #{category}
+            </if>
+        </where>
     </select>
 
     <select id="getProduct" parameterType="productDto" resultType="productDto">
         SELECT
-            <include refid="query"/>
+            p.ID as ID,
+            p.NAME as NAME,
+            p.PRICE as PRICE,
+            c1.CODE_NAME as BRAND,
+            c2.CODE_NAME as CATEGORY,
+            p.IMAGEURL as IMAGEURL
         FROM
-            PRODUCT
+            PRODUCT p
+        JOIN
+            common c1 ON
+                p.BRAND = c1.CODE_ID
+        JOIN
+            common c2 ON
+                p.CATEGORY = c2.CODE_ID
         WHERE
             ID = #{id}
     </select>
