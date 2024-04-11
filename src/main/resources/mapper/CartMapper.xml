@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cart">
+    <select id="getCarts" parameterType="cartDto" resultType="cartDto">
+        SELECT
+            C.ID
+            ,C.MEMBER_ID
+            ,C.PRODUCT_ID
+            ,C.CREATEDAT
+            ,P.NAME AS PRODUCT_NAME
+            ,P.PRICE AS PRODUCT_PRICE
+            ,P.BRAND AS PRODUCT_BRAND
+            ,P.IMAGEURL AS PRODUCT_IMAGEURL
+        FROM
+            CART C
+        JOIN
+            PRODUCT P ON
+                C.PRODUCT_ID = P.ID
+        WHERE
+            MEMBER_ID = #{member_id}
+    </select>
+    <insert id="insert" parameterType="cartDto">
+        INSERT INTO CART
+            (
+                ID
+                ,MEMBER_ID
+                ,PRODUCT_ID
+                ,CREATEDAT
+            )
+        VALUES
+            (
+                seq_cart.NEXTVAL
+                ,#{member_id}
+                ,#{product_id}
+                ,SYSDATE
+            )
+    </insert>
+</mapper>
