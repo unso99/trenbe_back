@@ -16,15 +16,18 @@
             ,C.CREATEDAT
             ,P.NAME AS PRODUCT_NAME
             ,P.PRICE AS PRODUCT_PRICE
-            ,P.BRAND AS PRODUCT_BRAND
+            ,CO.CODE_NAME AS PRODUCT_BRAND
             ,P.IMAGEURL AS PRODUCT_IMAGEURL
         FROM
             CART C
         JOIN
             PRODUCT P ON
                 C.PRODUCT_ID = P.ID
+        LEFT JOIN
+            COMMON CO ON
+                P.BRAND = CO.CODE_ID
         WHERE
-            MEMBER_ID = #{member_id}
+            C.MEMBER_ID = #{member_id}
     </select>
     <insert id="insert" parameterType="cartDto">
         INSERT INTO CART
