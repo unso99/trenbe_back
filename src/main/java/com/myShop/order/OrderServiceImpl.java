@@ -9,7 +9,7 @@ public class OrderServiceImpl implements OrderService{
     private final OrderDao dao;
 
     @Override
-    public int getOrderId() {
+    public long getOrderId() {
         return dao.getOrderId();
     }
 

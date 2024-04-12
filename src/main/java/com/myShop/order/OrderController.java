@@ -14,8 +14,8 @@ public class OrderController {
     private final OrderService service;
 
     @GetMapping("/get-order-id")
-    public ResponseEntity<Integer> getOrderId() {
-        int result = -1;
+    public ResponseEntity<Long> getOrderId() {
+        long result = -1;
         try {
             result = service.getOrderId();
             return new ResponseEntity<>(result, HttpStatus.OK);

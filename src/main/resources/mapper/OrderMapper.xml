@@ -17,7 +17,7 @@
                 ,#{address}
             )
     </insert>
-    <select id="getOrderId" resultType="int">
+    <select id="getOrderId" resultType="long">
         SELECT
             seq_order.NEXTVAL
         FROM

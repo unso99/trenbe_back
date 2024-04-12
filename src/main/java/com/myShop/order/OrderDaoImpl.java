@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 public class OrderDaoImpl implements OrderDao{
     private final SqlSession session;
     @Override
-    public int getOrderId() {
+    public long getOrderId() {
         return session.selectOne("orders.getOrderId");
     }
 

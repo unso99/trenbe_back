@@ -11,7 +11,7 @@ import org.apache.ibatis.type.Alias;
 @Data
 public class OrderDto {
     private long id;
-    private long member_id;
+    private String member_id;
     private long total_price;
     private String address;
 }

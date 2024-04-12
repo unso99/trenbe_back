@@ -1,6 +1,6 @@
 package com.myShop.order;
 
 public interface OrderDao {
-    public int getOrderId();
+    public long getOrderId();
     public int insert(OrderDto dto);
 }
