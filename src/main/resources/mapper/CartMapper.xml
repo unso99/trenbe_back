@@ -5,8 +5,14 @@
         DELETE
         FROM
             CART
-        WHERE
-            ID = #{id}
+        <where>
+            <if test="id != 0">
+                AND ID = #{id}
+            </if>
+            <if test="id == 0">
+                AND MEMBER_ID = #{member_id}
+            </if>
+        </where>
     </delete>
     <select id="getCarts" parameterType="cartDto" resultType="cartDto">
         SELECT
