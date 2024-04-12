@@ -19,4 +19,10 @@ public class CartServiceImpl implements CartService{
     public List<CartDto> getCarts(CartDto dto) {
         return dao.getCarts(dto);
     }
+
+    @Override
+    public boolean delete(CartDto dto) {
+        int result = dao.delete(dto);
+        return result >= 1;
+    }
 }

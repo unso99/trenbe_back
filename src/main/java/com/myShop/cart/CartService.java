@@ -5,4 +5,5 @@ import java.util.List;
 public interface CartService {
     public boolean insert(CartDto dto);
     public List<CartDto> getCarts(CartDto dto);
+    public boolean delete(CartDto dto);
 }

@@ -20,4 +20,9 @@ public class CartDaoImpl implements CartDao{
     public List<CartDto> getCarts(CartDto dto) {
         return session.selectList("cart.getCarts",dto);
     }
+
+    @Override
+    public int delete(CartDto dto) {
+        return session.delete("cart.delete",dto);
+    }
 }

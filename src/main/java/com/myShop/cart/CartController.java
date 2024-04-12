@@ -18,6 +18,25 @@ import java.util.List;
 public class CartController {
     private final CartService service;
 
+    @PostMapping("/delete-cart")
+    public ResponseEntity<CartResponse> deleteCart(@RequestBody CartDto dto) {
+        boolean isSuccess;
+        CartResponse response = new CartResponse();
+        try {
+            isSuccess = service.delete(dto);
+            log.info("cart -> {}", dto);
+            List<CartDto> list = service.getCarts(dto);
+            if (isSuccess) {
+                response.setDto(dto);
+                response.setList(list);
+            }
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            response.setError(e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PostMapping("/post-cart")
     public ResponseEntity<CartResponse> cartAdd(@RequestBody CartDto dto) {
         boolean isSuccess;
