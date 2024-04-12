@@ -56,11 +56,17 @@
             ID = #{id}
     </select>
     <insert id="insert" parameterType="productDto">
+        <selectKey keyProperty="id" resultType="int" order="BEFORE">
+            SELECT
+                SEQ_PRODUCT.NEXTVAL
+            FROM
+                DUAL
+        </selectKey>
         INSERT INTO PRODUCT
             (<include refid="query"/>)
         VALUES
             (
-                seq_product.NEXTVAL
+                #{id}
                 ,#{name}
                 ,#{price}
                 ,#{brand}

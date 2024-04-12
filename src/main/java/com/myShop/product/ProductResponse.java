@@ -15,5 +15,5 @@ import java.util.List;
 public class ProductResponse {
     private ProductDto dto;
     private List<ProductDto> list;
-    private HttpStatus status;
+    private String error;
 }

@@ -15,5 +15,5 @@ import java.util.List;
 public class CartResponse {
     private CartDto dto;
     private List<CartDto> list;
-    private HttpStatus status;
+    private String error;
 }

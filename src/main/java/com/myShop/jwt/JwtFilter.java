@@ -5,7 +5,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,15 +18,12 @@ import java.io.IOException;
 
 //요청할때마다 한번 걸치는 필터(스프링 프레임워크 내에서 동작하는 필터)
 @Component
+@RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
     @Value("${jwt.name}")
     private String jwtName;
-
-    @Autowired
-    private JwtUtil jwtUtil;
-
-    @Autowired
-    private MemberDetailService service;
+    private final JwtUtil jwtUtil;
+    private final MemberDetailService service;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

@@ -21,7 +21,6 @@ public class MemberDetailService implements UserDetailsService {
         MemberDto dto = dao.getMember(email);
         //만일 저장된 email이 없다면
         if (dto == null) {
-            System.out.println("사용자 정보 없음");
             //예외를 발생
             throw new UsernameNotFoundException("존재하지 않는 사용자입니다");
         }

@@ -13,5 +13,5 @@ import java.util.List;
 public class CommonResponse {
     private CommonDto dto;
     private List<CommonDto> list;
-    private HttpStatus status;
+    private String error;
 }

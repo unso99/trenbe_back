@@ -1,5 +1,6 @@
 package com.myShop.common;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,9 +15,9 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/common")
+@RequiredArgsConstructor
 public class CommonController {
-    @Autowired
-    private CommonService service;
+    private final CommonService service;
 
     @PostMapping("/get-common-list")
     private ResponseEntity<CommonResponse> getCommonList(@RequestBody CommonDto dto) {
@@ -27,11 +28,9 @@ public class CommonController {
                 log.info("common -> {}", item);
             });
             response.setList(list);
-            response.setStatus(HttpStatus.OK);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
-            log.error(e.getMessage());
-            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setError(e.getMessage());
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

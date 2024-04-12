@@ -1,8 +1,8 @@
 package com.myShop.member;
 
 import com.myShop.jwt.JwtUtil;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,16 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/member")
+@RequiredArgsConstructor
 public class MemberController {
 
-    @Autowired
-    private MemberService service;
-
-    @Autowired
-    private AuthenticationManager authManager;
-
-    @Autowired
-    private JwtUtil jwtUtil;
+    private final MemberService service;
+    private final AuthenticationManager authManager;
+    private final JwtUtil jwtUtil;
 
     @PostMapping("/login")
     public ResponseEntity<MemberResponse> login(@RequestBody MemberDto dto) throws Exception {
@@ -34,12 +30,11 @@ public class MemberController {
                     new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword());
             authManager.authenticate(authToken);
         } catch (Exception e) {
-            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setError(e.getMessage());
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 
         }
         response.setToken(jwtUtil.generateToken(dto.getEmail()));
-        response.setStatus(HttpStatus.OK);
         //예외가 발생하지 않았다면 인증을 통과한 것 토큰을 발급해서 응답
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -57,11 +52,9 @@ public class MemberController {
                 log.error("member = {}", insertedDto.toString());
             }
             response.setDto(insertedDto);
-            response.setStatus(HttpStatus.OK);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
-            e.printStackTrace();
-            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setError(e.getMessage());
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
