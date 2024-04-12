@@ -12,4 +12,10 @@ public class OrderServiceImpl implements OrderService{
     public int getOrderId() {
         return dao.getOrderId();
     }
+
+    @Override
+    public boolean insert(OrderDto dto) {
+        int result = dao.insert(dto);
+        return result == 1;
+    }
 }

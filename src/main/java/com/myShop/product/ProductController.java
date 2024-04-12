@@ -22,7 +22,7 @@ public class ProductController {
         try {
             List<ProductDto> list = service.getList(dto);
             list.forEach(item -> {
-                log.info("product = {}", item);
+                log.info("product -> {}", item);
             });
             response.setList(list);
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -39,10 +39,10 @@ public class ProductController {
         try {
             isSuccess = service.insert(dto);
             if (isSuccess) {
-                log.info("product = {}", dto);
+                log.info("product -> {}", dto);
                 response.setDto(dto);
             } else {
-                log.error("product = {}", new ProductDto());
+                log.error("product -> {}", new ProductDto());
                 response.setDto(new ProductDto());
             }
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -57,7 +57,7 @@ public class ProductController {
         ProductResponse response = new ProductResponse();
         try {
             ProductDto dto = service.getProduct(id);
-            log.info("product = {}", dto);
+            log.info("product -> {}", dto);
             response.setDto(dto);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {

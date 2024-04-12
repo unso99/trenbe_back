@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="orders">
+    <insert id="insert" parameterType="orderDto">
+        INSERT INTO ORDERS
+            (
+                ID
+                ,MEMBER_ID
+                ,TOTAL_PRICE
+                ,ADDRESS
+            )
+        VALUES
+            (
+                #{id}
+                ,#{member_id}
+                ,#{total_price}
+                ,#{address}
+            )
+    </insert>
     <select id="getOrderId" resultType="int">
         SELECT
             seq_order.NEXTVAL

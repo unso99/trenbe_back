@@ -12,4 +12,9 @@ public class OrderDaoImpl implements OrderDao{
     public int getOrderId() {
         return session.selectOne("orders.getOrderId");
     }
+
+    @Override
+    public int insert(OrderDto dto) {
+        return session.insert("orders.insert",dto);
+    }
 }
