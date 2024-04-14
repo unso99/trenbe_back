@@ -1,7 +1,6 @@
 package com.myShop.product;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,5 +25,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDto> getList(ProductDto dto) {
         return dao.getList(dto);
+    }
+
+    @Override
+    public List<ProductDto> search(String keyword) {
+        return dao.search(keyword);
     }
 }

@@ -6,4 +6,5 @@ public interface ProductService {
     public boolean insert(ProductDto dto);
     public ProductDto getProduct(long id);
     public List<ProductDto> getList(ProductDto dto);
+    public List<ProductDto> search(String keyword);
 }

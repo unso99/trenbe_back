@@ -10,6 +10,33 @@
         ,IMAGEURL
     </sql>
 
+    <select id="search" parameterType="String" resultType="productDto">
+        <bind name="pattern" value="'%' + keyword + '%'" />
+        SELECT *
+        FROM
+            (
+                SELECT
+                    p.ID as ID,
+                    p.NAME as NAME,
+                    p.PRICE as PRICE,
+                    c1.CODE_NAME as BRAND,
+                    c2.CODE_NAME as CATEGORY,
+                    p.IMAGEURL as IMAGEURL
+                FROM
+                    PRODUCT p
+                JOIN
+                    common c1 ON
+                        p.BRAND = c1.CODE_ID
+                JOIN
+                    common c2 ON
+                        p.CATEGORY = c2.CODE_ID
+            ) r
+        WHERE
+            r.name LIKE #{pattern} OR
+            r.brand LIKE #{pattern} OR
+            r.category LIKE #{pattern}
+    </select>
+
     <select id="getList" parameterType="productDto" resultType="productDto">
         SELECT
             p.ID as ID,

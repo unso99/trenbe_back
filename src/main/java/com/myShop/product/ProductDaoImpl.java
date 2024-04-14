@@ -25,4 +25,9 @@ public class ProductDaoImpl implements ProductDao{
     public List<ProductDto> getList(ProductDto dto) {
         return session.selectList("product.getList",dto);
     }
+
+    @Override
+    public List<ProductDto> search(String keyword) {
+        return session.selectList("product.search",keyword);
+    }
 }
