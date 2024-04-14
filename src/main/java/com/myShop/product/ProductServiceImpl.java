@@ -29,6 +29,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDto> search(String keyword) {
-        return dao.search(keyword);
+
+        return dao.search(keyword.replace("\"",""));
     }
 }
