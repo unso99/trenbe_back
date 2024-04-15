@@ -43,6 +43,7 @@ public class MemberController {
             UsernamePasswordAuthenticationToken authToken =
                     new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword());
             authManager.authenticate(authToken);
+            response.setDto(service.getMember(dto));
         } catch (Exception e) {
             response.setError(e.getMessage());
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
