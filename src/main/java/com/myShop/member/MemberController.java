@@ -22,6 +22,20 @@ public class MemberController {
     private final AuthenticationManager authManager;
     private final JwtUtil jwtUtil;
 
+    @PostMapping("/get-member")
+    public ResponseEntity<MemberResponse> getMember(@RequestBody MemberDto dto) {
+        MemberResponse response = new MemberResponse();
+        try{
+            MemberDto member = service.getMember(dto);
+            log.info("member -> {}", member);
+            response.setDto(member);
+            return new ResponseEntity<>(response,HttpStatus.OK);
+        }catch (Exception e) {
+            response.setError(e.getMessage());
+            return new ResponseEntity<>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PostMapping("/login")
     public ResponseEntity<MemberResponse> login(@RequestBody MemberDto dto) throws Exception {
         MemberResponse response = new MemberResponse();
