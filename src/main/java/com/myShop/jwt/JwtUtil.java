@@ -5,36 +5,28 @@ import com.myShop.member.MemberDto;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
-import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
 @Service
+@RequiredArgsConstructor
 public class JwtUtil {
 
     //토큰 발급시 서명할 key
     @Value("${jwt.secret}")
     private String secret;
-
-
     //토큰 만료
     @Value("${jwt.expiration}")
     private long expiration;
 
-    @Autowired
-    private MemberDao dao;
-
-    @Autowired
-    private HttpServletResponse response;
+    private final MemberDao dao;
 
     public String extractMemberName(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -73,7 +65,7 @@ public class JwtUtil {
                 .setSubject(subject) //토큰의 주제(사용자명 or 사용자의 id or 기관명 or 기기명)
                 .setIssuedAt(new Date(System.currentTimeMillis())) // 토큰 발급 시간
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))//토큰 무효화 되는 시간
-                .signWith(SignatureAlgorithm.HS256,secret)
+                .signWith(SignatureAlgorithm.HS256, secret)
                 .compact(); // HS256 알고리즘으로 서명해서 토큰얻어내기
     }
 

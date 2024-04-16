@@ -47,7 +47,6 @@ public class MemberController {
         } catch (Exception e) {
             response.setError(e.getMessage());
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-
         }
         response.setToken(jwtUtil.generateToken(dto.getEmail()));
         //예외가 발생하지 않았다면 인증을 통과한 것 토큰을 발급해서 응답

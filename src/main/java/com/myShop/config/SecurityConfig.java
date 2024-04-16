@@ -1,7 +1,7 @@
 package com.myShop.config;
 
 import com.myShop.jwt.JwtFilter;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,15 +18,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration // 설정 클래스라고 알려준다
 @EnableWebSecurity // Security 를 설정하기 위한 어노테이션
+@RequiredArgsConstructor
 public class SecurityConfig {
-    @Autowired
-    private JwtFilter jwtFilter;
+    private final JwtFilter jwtFilter;
 
     @Bean // 메소드에서 리턴되는 SecurityFilterChain 을 bean 으로 만들어준다.
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         // 메소드의 매개변수에 HttpSecurity 의 참조값이 전달되는데 해당 객체를 이용해서 설정을 한다음
-        String[] whiteList = {"/swagger", "/api-docs/**","/swagger-ui/**"
-        ,"/member/login","/member/post-member"};
+        String[] whiteList = {"/swagger", "/api-docs/**", "/swagger-ui/**"
+                , "/member/login", "/member/post-member"};
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(config ->
                         config

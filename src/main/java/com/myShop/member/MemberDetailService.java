@@ -1,6 +1,6 @@
 package com.myShop.member;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 
 @Service
+@RequiredArgsConstructor
 public class MemberDetailService implements UserDetailsService {
 
-    @Autowired
-    private MemberDao dao;
+    private final MemberDao dao;
 
     //Sptring security가 로그인 처리시 호출하는 메소드
     @Override
