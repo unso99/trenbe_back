@@ -68,13 +68,12 @@ public class JwtUtil {
 
     private String createToken(Map<String, Object> claims, String subject) {
         //JwtBuilder 객체를 이용해서 토큰을 만든다.
-        Key key = Keys.hmacShaKeyFor(secret.getBytes());
         return Jwts.builder()
-                .signWith(key,SignatureAlgorithm.HS256)
                 .setClaims(claims)  //토큰에 담을 추가 정보
                 .setSubject(subject) //토큰의 주제(사용자명 or 사용자의 id or 기관명 or 기기명)
                 .setIssuedAt(new Date(System.currentTimeMillis())) // 토큰 발급 시간
-                .setExpiration(new Date(System.currentTimeMillis() + expiration)) //토큰 무효화 되는 시간
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))//토큰 무효화 되는 시간
+                .signWith(SignatureAlgorithm.HS256,secret)
                 .compact(); // HS256 알고리즘으로 서명해서 토큰얻어내기
     }
 

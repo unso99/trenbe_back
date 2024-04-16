@@ -62,9 +62,9 @@ public class MemberController {
             isSuccess = service.insert(dto);
             MemberDto insertedDto = service.getMember(dto);
             if (isSuccess) {
-                log.info("member -> {}", insertedDto.toString());
+                log.info("member -> {}", insertedDto);
             } else {
-                log.error("member -> {}", insertedDto.toString());
+                log.error("member -> {}", insertedDto);
             }
             response.setDto(insertedDto);
             return new ResponseEntity<>(response, HttpStatus.OK);

@@ -25,10 +25,12 @@ public class SecurityConfig {
     @Bean // 메소드에서 리턴되는 SecurityFilterChain 을 bean 으로 만들어준다.
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         // 메소드의 매개변수에 HttpSecurity 의 참조값이 전달되는데 해당 객체를 이용해서 설정을 한다음
+        String[] whiteList = {"/swagger", "/api-docs/**","/swagger-ui/**"
+        ,"/member/login","/member/post-member"};
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(config ->
                         config
-                                .requestMatchers("/**").permitAll()
+                                .requestMatchers(whiteList).permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(config -> config.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
