@@ -22,7 +22,7 @@
 
 * 개발 인원 : 1명
 
-* 개발 기간 : 2024.04.07 ~ 2024.04.18
+* 개발 기간 : 2024.04.07 ~ 2024.04.18 (10일)
 
 * 주요 기능
     * 제품 추가, 조회, 검색 기능
@@ -38,8 +38,11 @@
 * 형상 관리 툴 : git
 
 ## 테이블 설계
+![SHOP](https://github.com/unso99/trenbe_back/assets/94777814/564dd9ab-b440-4424-8442-b9840fa0d866)
 
 
 ## API 설계
+![image](https://github.com/unso99/trenbe_back/assets/94777814/ea3bae07-c03b-4dc6-b005-e48b76d019b9)
+![image](https://github.com/unso99/trenbe_back/assets/94777814/85cc3717-9bed-44c9-9669-3597b6b263df)
 
 
